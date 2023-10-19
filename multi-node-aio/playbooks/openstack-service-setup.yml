@@ -25,7 +25,7 @@
 #      - always
 
   - name: Create flavors of nova VMs
-    openstack.cloud.os_nova_flavor:
+    openstack.cloud.compute_flavor:
       endpoint_type: internal
       cloud: default
       state: present
@@ -40,7 +40,7 @@
       - create_flavors
 
   - name: Create networks
-    openstack.cloud.os_network:
+    openstack.cloud.network:
       endpoint_type: internal
       cloud: default
       state: present
@@ -55,7 +55,7 @@
       - create_networks
 
   - name: Create networks (OVN)
-    openstack.cloud.os_network:
+    openstack.cloud.network:
       endpoint_type: internal
       cloud: default
       state: present
@@ -68,7 +68,7 @@
     when: osa_enable_networking_ovn | default(false) | bool
 
   - name: Create subnets on networks
-    openstack.cloud.os_subnet:
+    openstack.cloud.subnet:
       endpoint_type: internal
       cloud: default
       state: present
@@ -86,7 +86,7 @@
       - create_networks
 
   - name: Create a router on both public and private networks
-    openstack.cloud.os_router:
+    openstack.cloud.router:
       endpoint_type: internal
       cloud: default
       state: present
@@ -109,7 +109,7 @@
       - create_networks
 
   - name: Setup rules on all security groups
-    openstack.cloud.os_security_group_rule:
+    openstack.cloud.security_group_rule:
       endpoint_type: internal
       cloud: default
       security_group: "{{ item[1] }}"
